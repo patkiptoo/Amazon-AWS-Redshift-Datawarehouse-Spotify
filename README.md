@@ -48,7 +48,9 @@ Create an iam role and attach S3ReadOnly policy to the role.
 Ensure you have access to the redshift cluster from within the VPC or open access through the network security group as appropriate.  
 Populate dwh.cfg with details of your redshift cluster and iam role.  
 From a terminal client with python 3 execute as follows.  
+```
 $ python ./create_tables.py  
-$ python ./etl.py  
+$ python ./etl.py
+```  
 
 Use the AWS Redshift Query Editor to validate the datawarehouse loaded as expected.
