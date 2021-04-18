@@ -8,7 +8,6 @@ The data engineering team has deisgned a pipeline to move these usage data to am
 Redshift data warehouse via etl and denormalize the schema, build a start schema and optimize for analytics.
 
 ## Technologies
-
 Amazon AWS S3  
 Amzon AWS Redshift  
 python
@@ -29,14 +28,27 @@ The songplays fact table is distributed by user_id. This ensures analysis of a g
 The lookup (dimension) tables have distribution style ALL. Since they aren't large comparatively, this ensures we have optimized query execution on every node of the cluster.
 
 
-## ETL Pipeline
+## Explantion of files in the repository
 
-The usage data files are in S4 in json format.  
-a. The song data files contain the details of the songs in the catalog along with artist and year details.  
-b. The song plays details include the user details, the exact time of play, and the order of play in the session.  
+### create_tables.py
+Creates the staging and dimension and fact tables. It drops the tables if they exists before creating.
 
-The ETL process loads the S3 files into two staging tables  
-1. staging_events  
-2. staging_songs  
+### dwh.cfg
+Holds connect and role details needed to access S3 and Redshift cluster. Certain fields blanked out for security.
 
-It then proceeds to load the start schema using queries defined in sql_queries.py
+### etl.py
+Executes the load of the staging tables from S3 and the inserts into the dimension and fact tables.
+
+### sql_queries.py
+Construct of the necessary SQL to be used by etl.py and create_tables.py.
+
+## How to run
+Create a Redshift Cluster in AWS
+Create an iam role and attach S3ReadOnly policy to the role.
+Ensure you have access to the redshift cluster from within the VPC or open access through the network security group as appropriate.
+Populate dwh.cfg with details of your redshift cluster and iam role.
+From a terminal client with python 3 execute as follows.
+$ python ./create_tables.py
+$ python ./etl.py
+
+Use the AWS Redshift Query Editor to validate the datawarehouse loaded as expected.
