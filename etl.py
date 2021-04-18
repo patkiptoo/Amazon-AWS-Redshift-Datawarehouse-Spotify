@@ -4,18 +4,27 @@ from sql_queries import copy_table_queries, insert_table_queries
 
 
 def load_staging_tables(cur, conn):
+    """
+    Load staging tables from S3.
+    """
     for query in copy_table_queries:
         cur.execute(query)
         conn.commit()
 
 
 def insert_tables(cur, conn):
+    """
+    Load dimension and fact tables for the DW.
+    """
     for query in insert_table_queries:
         cur.execute(query)
         conn.commit()
 
 
 def main():
+    """
+    Parse connection details and make connection to DB then call load and insert functions.
+    """
     config = configparser.ConfigParser()
     config.read('dwh.cfg')
 
