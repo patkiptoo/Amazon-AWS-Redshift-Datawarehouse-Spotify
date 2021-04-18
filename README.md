@@ -18,7 +18,8 @@ The datawarehouse utilizes a 4 node Redshift Cluster of size dc2.xlarge
 
 ## ERD Schema Design
 
-https://github.com/patkiptoo/Amazon-AWS-Redshift-Datawarehouse-Spotify/blob/main/Relation-ERD.png
+![Relation-ERD](https://user-images.githubusercontent.com/12589508/115133308-2d317b00-9fd5-11eb-9d9d-dc429fb785f9.png)
+
 
 
 ## RedShift Optimization
